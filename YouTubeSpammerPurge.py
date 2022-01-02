@@ -94,13 +94,21 @@ def get_authenticated_service():
   DISCOVERY_SERVICE_URL = "https://youtube.googleapis.com/$discovery/rest?version=v3" # If don't specify discovery URL for build, works in python but fails when running as EXE
 
   # Check if client_secrets.json file exists, if not give error
-  if not os.path.exists(CLIENT_SECRETS_FILE):
+  if not os.path.exists(CLIENT_SECRETS_FILE): 
+    CURR_DIR = os.path.dirname(os.path.realpath(__file__)) #current directory
+    LIST_DIR = os.listdir(CURR_DIR) #list current directory, array.
+    for dir in LIST_DIR:
+      if dir.endswith('.json'):
+        print(f'{F.GREEN} RENAMING, \'{dir}\'')
+        os.rename(dir, 'client_secrets.json')
+        break
+  else:
     print("\n ------------- ERROR: "+CLIENT_SECRETS_FILE+" file not found! ------------- ")
     print(" Make sure it is placed in the same folder as the program, and is spelled as above \n")
     print(" ----- Or: Did you create a Google Cloud Platform Project to access the API? ----- ")
     print(" ------ See section with instructions on obtaining an API Key at this page: ------- ")
     print(" ---------- https://github.com/ThioJoe/YouTube-Spammer-Purge/ ---------- ")
-    input("\n Press Enter to Exit...")
+    input("\n Press any key to Exit...")
     sys.exit()
 
   creds = None
@@ -136,7 +144,8 @@ def print_exception_reason(reason):
     print("   There is a daily limit of 10,000 units/day, which works out to around reporting 10,000 comments/day.")
     print("   You can check your quota by searching 'quota' in the google cloud console.")
     print(f"{F.YELLOW}Solutions: Either wait until tomorrow, or create additional projects in the cloud console.{S.R}")
-    input("\n Press Enter to Exit...")
+    input("\n Press key to Exit...")
+    exit()
 
 ##########################################################################################
 ############################### PRINT SPECIFIC COMMENTS ##################################
