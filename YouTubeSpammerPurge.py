@@ -102,14 +102,16 @@ def get_authenticated_service():
         print(f'{F.GREEN} RENAMING, \'{dir}\'')
         os.rename(dir, 'client_secrets.json')
         break
-  else:
-    print("\n ------------- ERROR: "+CLIENT_SECRETS_FILE+" file not found! ------------- ")
-    print(" Make sure it is placed in the same folder as the program, and is spelled as above \n")
-    print(" ----- Or: Did you create a Google Cloud Platform Project to access the API? ----- ")
-    print(" ------ See section with instructions on obtaining an API Key at this page: ------- ")
-    print(" ---------- https://github.com/ThioJoe/YouTube-Spammer-Purge/ ---------- ")
-    input("\n Press any key to Exit...")
-    sys.exit()
+    if os.path.exists(CLIENT_SECRETS_FILE):
+      print(f"{F.RED} File RENAMED -> \'{dir}\'')
+    else:
+      print("\n ------------- ERROR: "+CLIENT_SECRETS_FILE+" file not found! ------------- ")
+      print(" Make sure it is placed in the same folder as the program, and is spelled as above \n")
+      print(" ----- Or: Did you create a Google Cloud Platform Project to access the API? ----- ")
+      print(" ------ See section with instructions on obtaining an API Key at this page: ------- ")
+      print(" ---------- https://github.com/ThioJoe/YouTube-Spammer-Purge/ ---------- ")
+      input("\n Press any key to Exit...")
+      sys.exit()
 
   creds = None
   # The file token.pickle stores the user's access and refresh tokens, and is
